@@ -26,4 +26,8 @@
 * OpenAI 및 Gemini API를 활용한 사용자 맞춤형 음악 추천
 * 웹 인터페이스를 통한 챗봇과의 실시간 상호작용
 
-## 파일 구조
+## 역할
+
+명일 : 들러리, ㅄ
+소이 : 백엔드 app.py 작성 및 gemini api 연동
+창하 : 백엔드 app.py 작성 및 gemini api 연동
