@@ -4,8 +4,8 @@
 사용자의 현재 기분이나 상황에 맞는 음악 플레이리스트를 추천해주는 웹 기반의 챗봇 서비스입니다. 간단한 대화를 통해 원하는 분위기의 음악을 추천받을 수 있습니다.
 
 ## 프로젝트 아키텍처
-![초기 아키텍처 구상](vanillaturtlechips/awschoolteamproject/awschoolteamproject-6b798b14ab41fedb8c681023438601ab151f552d/pic/arki1.jpg)
-![상세 아키텍처](vanillaturtlechips/awschoolteamproject/awschoolteamproject-6b798b14ab41fedb8c681023438601ab151f552d/pic/arki2.jpg)
+![초기 아키텍처 구상](vanillaturtlechips/awschoolteamproject/pic/arki1.jpg)
+![상세 아키텍처](vanillaturtlechips/awschoolteamproject/pic/arki2.jpg)
 
 
 ## 파일 구조
