@@ -7,21 +7,18 @@
 ![초기 아키텍처 구상](./pic/arki1.jpg)
 ![상세 아키텍처](./pic/arki2.jpg)
 
-## 파일 구조
+### 📂 파일 구조
 
-playlist-bot/
-├── app.py              # 백엔드의 모든 것! (Flask 서버, API 로직 전부 여기에)
-│
-├── templates/
-│   └── index.html      # 사용자에게 보여줄 유일한 HTML 페이지
-│
-├── static/
-│   ├── style.css       # 페이지를 꾸미는 CSS 파일
-│   └── script.js       # 프론트엔드 기능(API 요청 등)을 담은 JS 파일
-│
-├── requirements.txt    # 필요한 라이브러리 목록 (pip install -r requirements.txt)
-│
-└── .env                # API 키를 저장하는 비밀 파일 (aws 연동 및 open ai 연동 키값 저장)
+| 경로 | 파일/폴더 | 설명 |
+| :--- | :--- | :--- |
+| `playlist-bot/` | **`app.py`** | 백엔드의 모든 것! (Flask 서버, API 로직) |
+| | **`templates/`** | HTML 템플릿 폴더 |
+| | └── `index.html` | 사용자에게 보여줄 유일한 HTML 페이지 |
+| | **`static/`** | CSS, JS 등 정적 파일 폴더 |
+| | ├── `style.css` | 페이지를 꾸미는 CSS 파일 |
+| | └── `script.js` | 프론트엔드 기능(API 요청 등)을 담은 JS 파일 |
+| | **`requirements.txt`** | 필요한 라이브러리 목록 |
+| | **`.env`** | API 키 등을 저장하는 비밀 파일 |
 
 
 ## 주요 기능
