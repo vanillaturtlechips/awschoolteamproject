@@ -8,7 +8,7 @@ import requests
 import json
 import re 
 
-genai.configure(api_key="AIzaSyAex3UbR4Yo8sjZsQqMe0TFe0lOWysQzNM")
+genai.configure(api_key="api 키입력")
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 app = FastAPI()
