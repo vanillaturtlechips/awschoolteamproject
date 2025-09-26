@@ -17,6 +17,11 @@ from fastapi.responses import HTMLResponse, JSONResponse  # 응답 형식 지정
 from fastapi.templating import Jinja2Templates  # HTML 템플릿 사용
 from pydantic import BaseModel  # 데이터 유효성 검사 및 형태 정의
 
+# CORS 관련 라이브러리들
+
+from fastapi.middleware.cors import CORSMiddleware # CORS 허용 미들웨어
+
+
 # --------------------------------------------------------------------------
 # 로컬 모듈 및 환경 설정
 # --------------------------------------------------------------------------
@@ -54,6 +59,20 @@ vision_model = genai.GenerativeModel('gemini-2.5-pro')  # 이미지 분석용 �
 
 # FastAPI 앱 인스턴스를 생성합니다.
 app = FastAPI()
+
+
+# 모든 출처에서의 요청을 허용합니다. 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 # 정적 파일(static)과 템플릿(templates) 폴더의 경로를 앱에 알려줍니다.
 # /static 경로로 오는 요청은 static 폴더 안의 파일들을 보여주라는 의미입니다.
