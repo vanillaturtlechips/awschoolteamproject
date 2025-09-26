@@ -42,15 +42,22 @@ def analyze_emotion_and_recommend(user_message):
     1. 사용자의 감정을 "~한 기분" 형태로 분석
     2. 그 감정에 맞는 한국 음악 3곡 추천
 
-    응답 형식:
-    {{
-        "emotion": "예시: 차분하고 우울한 기분",
-        "recommended_songs": [
-            {{"title": "노래제목", "artist": "가수명"}},
-            {{"title": "노래제목", "artist": "가수명"}},
-            {{"title": "노래제목", "artist": "가수명"}}
-        ]
-     }}
+    응답 형식:                                 
+    {{                                             #응답 형식 변경
+  "emotion": "AI가 분석한 사용자의 감정/상황",
+  "recommended_songs": [
+    {
+      "title": "노래 제목1",
+      "artist": "가수명1",
+      "youtube_link": "https://youtube.com/watch?v=..."
+    },
+    {
+      "title": "노래 제목2",
+      "artist": "가수명2",
+      "youtube_link": "https://youtube.com/watch?v=..."
+    }
+  ]
+}}
     """
     
     try:
