@@ -10,6 +10,7 @@ import json
 import os
 from dotenv import load_dotenv  # 추가
 from search_youtube import get_youtube_link, get_youtube_thumbnail  # 추가
+from fastapi.responses import JSONResponse
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel('gemini-pro')
@@ -139,10 +140,11 @@ def analyze_emotion_and_recommend(user_message):
 async def form_get(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.post("/", response_class=HTMLResponse)
-async def process_chat(request: Request, color: str = Form(...)):
-    """색상 선택 처리 라우트"""
-    
+@app.post("/", response_class=JSONResponse)
+async def process_input(
+    color_input: str = Form(None),
+    text_input: str = Form(None)
+):
     color_messages = {
         "red": "빨간색을 선택했어요. 열정적이고 강렬한 느낌",
         "blue": "파란색을 선택했어요. 차분하고 평온한 느낌", 
@@ -151,26 +153,28 @@ async def process_chat(request: Request, color: str = Form(...)):
         "pink": "분홍색을 선택했어요. 로맨틱하고 부드러운 느낌",
         "orange": "주황색을 선택했어요. 따뜻하고 에너지 넘치는 느낌"
     }
-    
-    user_message = color_messages.get(color, "색상을 선택했어요")
-    
+
+    # None 처리
+    color_input = color_input or ""
+    text_input = text_input or ""
+
+    # 문자열로 합치기
+    user_message = ""
+    if color_input:
+        user_message += color_messages.get(color_input, "") + " "
+    if text_input:
+        user_message += text_input
+    user_message = user_message.strip()
+
+    if not user_message:
+        return {"error": "메시지가 비어 있습니다."}
+
     recommendation_data = analyze_emotion_and_recommend(user_message)
     
     if not recommendation_data:
-        return templates.TemplateResponse("index.html", {
-            "request": request,
-            "selected_color": color,
-            "error": "죄송합니다. 잠시 후 다시 시도해주세요.",
-            "show_result": True
-        })
-    
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "selected_color": color,
-        "emotion_analysis": recommendation_data['emotion'],
-        "recommended_songs": recommendation_data['recommended_songs'],
-        "show_result": True
-    })
+        return {"error": "추천 데이터를 가져오지 못했습니다."}
+
+    return recommendation_data
 
 if __name__ == "__main__":
     import uvicorn
