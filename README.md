@@ -28,12 +28,12 @@
 
 ## 역할
 
-명일 : 들러리, ㅄ
+명일 : 백엔드 app.py 작성 및 gemini api 연동 및 프론트엔드, aws 연동 및 프로젝트 PM
 소이 : 백엔드 app.py 작성 및 gemini api 연동
 창하 : 백엔드 app.py 작성 및 gemini api 연동
 
 
-## app.py 로직 (팀장 ㅄ이 생각한 방안)
+## app.py 로직 (팀장이 생각한 방안)
 
 * 설정 부분 (약 10~15줄):
 
@@ -52,3 +52,8 @@
 * 서버 실행 부분 (딱 2줄):
 
 if __name__ == '__main__': 으로 시작하는, 우리 서버를 '실행'시키는 마지막 코드입니당.
+
+
+## 도메인
+
+http://penguin-playlist-bot-20250926.s3-website.ap-northeast-2.amazonaws.com/
