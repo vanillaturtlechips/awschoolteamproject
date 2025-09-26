@@ -5,11 +5,14 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import google.generativeai as genai
 import requests
+import re
 import json
-import re 
+import os
+from dotenv import load_dotenv  # 추가
+from search_youtube import get_youtube_link, get_youtube_thumbnail  # 추가
 
-genai.configure(api_key="api 키입력")
-model = genai.GenerativeModel('gemini-1.5-flash')
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel('gemini-pro')
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -26,7 +29,6 @@ def fix_json_format(json_text):
         return fixed
     except:
         return None
-
 
 
 def analyze_emotion_and_recommend(user_message):
@@ -89,7 +91,30 @@ def analyze_emotion_and_recommend(user_message):
         try:
             result = json.loads(json_text)
             print(f"✅ 파싱 성공!")
+
+            enriched_songs = []
+            for song in result['recommended_songs']:
+                song_title = song['title']
+                artist = song['artist']
+                
+                # YouTube 링크 및 썸네일 검색
+                print(f"🎵 YouTube 검색 중: {artist} - {song_title}")
+                youtube_url = get_youtube_link(song_title, artist)
+                thumbnail_url = get_youtube_thumbnail(song_title, artist)
+                
+                # 곡 정보에 YouTube 정보 추가
+                enriched_song = {
+                    'title': song_title,
+                    'artist': artist,
+                    'youtube_url': youtube_url or '#',  # 링크가 없으면 #
+                    'thumbnail': thumbnail_url or '/static/default_cover.jpg'
+                }
+                enriched_songs.append(enriched_song)
+            
+            # 결과에 YouTube 정보가 포함된 곡 목록 반환
+            result['recommended_songs'] = enriched_songs
             return result
+        
         except json.JSONDecodeError as parse_error:
             print(f"❌ JSON 파싱 실패: {parse_error}")
             print(f"❌ 파싱 시도 텍스트: '{json_text}'")
@@ -122,7 +147,7 @@ async def process_chat(request: Request, color: str = Form(...)):
         "red": "빨간색을 선택했어요. 열정적이고 강렬한 느낌",
         "blue": "파란색을 선택했어요. 차분하고 평온한 느낌", 
         "yellow": "노란색을 선택했어요. 밝고 활기찬 느낌",
-        "green": "보라색을 선택했어요. 신비롭고 창의적인 느낌",
+        "green": "초록색을 선택했어요. 신비롭고 창의적인 느낌",
         "pink": "분홍색을 선택했어요. 로맨틱하고 부드러운 느낌",
         "orange": "주황색을 선택했어요. 따뜻하고 에너지 넘치는 느낌"
     }
