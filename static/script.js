@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 백엔드 서버와 통신하는 함수 (수정됨)
     async function fetchBotResponse(endpoint, contentType, body) {
         // EC2 서버의 8000번 포트로 요청
-        const backendUrl = `http://3.36.74.0:8000${endpoint}`;
+        const backendUrl = `http://playlist-bot-alb-864387607.ap-northeast-2.elb.amazonaws.com${endpoint}`;
 
         appendMessage('Playlist를 찾고 있어요...', 'bot-message', true);
         try {
